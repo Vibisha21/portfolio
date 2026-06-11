@@ -1,68 +1,140 @@
-import { useRef } from "react";
+import type { RefObject } from "react";
+import Robot from "./Robot";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const checkpoints = [
-  { y: 100, label: "About" },
-  { y: 700, label: "Skills" },
-  { y: 1300, label: "Projects" },
-  { y: 1900, label: "Certifications" },
-  { y: 2500, label: "Achievements" },
-  { y: 3100, label: "Contact" },
-  { y: 3700, label: "Resume" },
+  { y: 50, label: "Who Am I?", id: "about" },
+  { y: 160, label: "My Skills", id: "skills" },
+  { y: 270, label: "Projects", id: "projects" },
+  { y: 380, label: "Certifications", id: "certifications" },
+  { y: 490, label: "Achievements", id: "achievements" },
+  { y: 600, label: "Contact Me", id: "contact" },
+  { y: 710, label: "Resume", id: "resume" },
 ];
 
-export default function JourneyPath() {
-  const pathRef = useRef<SVGPathElement>(null);
+interface JourneyPathProps {
+  pathRef: RefObject<SVGPathElement | null>;
+  activeIndex: number;
+  robotPos: { x: number; y: number };
+  isWalking: boolean;
+  isSitting: boolean;
+  isWaving: boolean;
+}
 
+export default function JourneyPath({
+  pathRef,
+  activeIndex,
+  robotPos,
+  isWalking,
+  isSitting,
+  isWaving,
+}: JourneyPathProps) {
   return (
-    <div className="relative w-full h-[4500px] flex justify-center">
+    <div className="w-full h-full flex justify-center items-center py-4 px-2 select-none">
       <svg
-        width="250"
-        height="4500"
-        viewBox="0 0 250 4500"
-        className="absolute top-0 overflow-visible"
+        width="100%"
+        height="100%"
+        viewBox="0 0 320 780"
+        preserveAspectRatio="xMidYMid meet"
+        className="overflow-visible max-h-[90vh]"
       >
+        {/* Background Wavy Path (Soft shadow/line) */}
+        <path
+          d="
+            M160 50
+            C40 105, 280 105, 160 160
+            C280 215, 40 215, 160 270
+            C40 325, 280 325, 160 380
+            C280 435, 40 435, 160 490
+            C40 545, 280 545, 160 600
+            C280 655, 40 655, 160 710
+          "
+          fill="none"
+          stroke="#E6DFD5"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
+
+        {/* Main Journey Path (Curvy & Giggly, wider bounds) */}
         <path
           ref={pathRef}
           id="journey-path"
           d="
-            M120 100
-            C40 300, 200 500, 120 700
-            C40 900, 200 1100, 120 1300
-            C40 1500, 200 1700, 120 1900
-            C40 2100, 200 2300, 120 2500
-            C40 2700, 200 2900, 120 3100
-            C40 3300, 200 3500, 120 3700
-            C40 3900, 200 4100, 120 4300
+            M160 50
+            C40 105, 280 105, 160 160
+            C280 215, 40 215, 160 270
+            C40 325, 280 325, 160 380
+            C280 435, 40 435, 160 490
+            C40 545, 280 545, 160 600
+            C280 655, 40 655, 160 710
           "
           fill="none"
-          stroke="#8B6B4F"
+          stroke="#6F5E53"
           strokeWidth="5"
           strokeLinecap="round"
+          strokeDasharray="1 9" /* Hand-drawn style */
         />
 
-        {checkpoints.map((point) => (
-          <g key={point.label}>
-            <circle
-              cx="120"
-              cy={point.y}
-              r="12"
-              fill="#E6C56A"
-              stroke="#8B6B4F"
-              strokeWidth="2"
-            />
+        {/* Checkpoint nodes */}
+        {checkpoints.map((point, index) => {
+          const isActive = activeIndex === index;
+          const isVisited = activeIndex > index;
 
-            <text
-              x="145"
-              y={point.y + 5}
-              fill="#4B4B4B"
-              fontSize="16"
-              fontWeight="500"
-            >
-              {point.label}
-            </text>
-          </g>
-        ))}
+          return (
+            <g key={point.id} className="cursor-pointer">
+              {/* Active Pulse Glow */}
+              {isActive && (
+                <circle
+                  cx="160"
+                  cy={point.y}
+                  r="24"
+                  fill="none"
+                  stroke="#E6B800"
+                  strokeWidth="3"
+                  className="opacity-75 animate-ping"
+                  style={{ transformOrigin: `160px ${point.y}px` }}
+                />
+              )}
+
+              {/* Checkpoint Border */}
+              <circle
+                cx="160"
+                cy={point.y}
+                r="13"
+                fill={isActive ? "#E6B800" : isVisited ? "#6F5E53" : "#FAF6F0"}
+                stroke="#1E1B18"
+                strokeWidth="2.5"
+                className="transition-all duration-300"
+              />
+
+              {/* Inner Node Core */}
+              <circle
+                cx="160"
+                cy={point.y}
+                r="5.5"
+                fill={isActive ? "#1E1B18" : isVisited ? "#FAF6F0" : "#9B938B"}
+                className="transition-all duration-300"
+              />
+
+              {/* Label */}
+              <text
+                x="190"
+                y={point.y + 6}
+                fill={isActive ? "#1E1B18" : isVisited ? "#6F5E53" : "#9B938B"}
+                fontSize="16"
+                fontWeight={isActive ? "700" : "600"}
+                className="transition-all duration-300 select-none font-sans"
+              >
+                {point.label}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* The Walking/Sitting Robot (Scaled up by 1.35 for presence) */}
+        <g transform={`translate(${robotPos.x}, ${robotPos.y}) scale(1.35)`} className="transition-transform duration-75">
+          <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} />
+        </g>
       </svg>
     </div>
   );
