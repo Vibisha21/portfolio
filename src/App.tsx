@@ -20,8 +20,16 @@ function App() {
   const scrollTimeoutRef = useRef<number | null>(null);
 
   // Derived states
-  const isSitting = progress >= 0.96;
+  const isSitting = false; // The robot no longer sits at the end!
+  const isJumping = progress >= 0.96;
   const isWaving = progress >= 0.96;
+
+  const handleCheckpointClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,6 +99,8 @@ function App() {
             isWalking={isWalking}
             isSitting={isSitting}
             isWaving={isWaving}
+            isJumping={isJumping}
+            onCheckpointClick={handleCheckpointClick}
           />
         </div>
 

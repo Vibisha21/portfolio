@@ -2,11 +2,12 @@ interface RobotProps {
   isWalking: boolean;
   isSitting: boolean;
   isWaving: boolean;
+  isJumping?: boolean;
 }
 
-export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
+export default function Robot({ isWalking, isSitting, isWaving, isJumping = false }: RobotProps) {
   return (
-    <g className={isWalking && !isSitting ? "robot-bobbing" : ""}>
+    <g className={isJumping ? "robot-jumping" : isWalking && !isSitting ? "robot-bobbing" : ""}>
       {/* Neck */}
       <line
         x1="0"
@@ -30,7 +31,7 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
         cx="0"
         cy="-36"
         r="3.5"
-        fill={isSitting ? "#E6B800" : "#9B938B"}
+        fill={isJumping || isSitting ? "#E6B800" : "#9B938B"}
         stroke="#1E1B18"
         strokeWidth="2"
       />
@@ -163,7 +164,7 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
           cx="-5"
           cy="-16"
           r="2.5"
-          fill={isSitting ? "#E6B800" : "#FAF6F0"}
+          fill={isJumping || isSitting ? "#E6B800" : "#FAF6F0"}
           className="robot-eye-blinking"
         />
         {/* Right Eye */}
@@ -171,7 +172,7 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
           cx="5"
           cy="-16"
           r="2.5"
-          fill={isSitting ? "#E6B800" : "#FAF6F0"}
+          fill={isJumping || isSitting ? "#E6B800" : "#FAF6F0"}
           className="robot-eye-blinking"
         />
         {/* Mouth */}
@@ -187,7 +188,7 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
 
       {/* Left Arm */}
       <g
-        className={isWalking && !isSitting ? "robot-arm-l-walking" : ""}
+        className={isJumping ? "robot-arm-l-jumping" : isWalking && !isSitting ? "robot-arm-l-walking" : ""}
         style={{ transformOrigin: "-22px 0px", transform: "translate(-22px, 0px)" }}
       >
         <line
@@ -213,7 +214,9 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
       {/* Right Arm */}
       <g
         className={
-          isWaving
+          isJumping
+            ? "robot-arm-r-jumping"
+            : isWaving
             ? "robot-arm-r-waving"
             : isWalking
             ? "robot-arm-r-walking"
@@ -240,6 +243,30 @@ export default function Robot({ isWalking, isSitting, isWaving }: RobotProps) {
           strokeWidth="1.5"
         />
       </g>
+
+      {/* Speech Bubble */}
+      {isJumping && (
+        <g transform="translate(18, -32)">
+          {/* Speech bubble tail */}
+          <polygon points="0,10 -8,15 2,17" fill="#FAF6F0" stroke="#1E1B18" strokeWidth="1.8" />
+          {/* Speech bubble main body */}
+          <rect x="0" y="-3" width="42" height="22" rx="6" fill="#FAF6F0" stroke="#1E1B18" strokeWidth="1.8" />
+          {/* Cover overlap stroke */}
+          <rect x="1" y="9" width="3" height="6" fill="#FAF6F0" />
+          {/* Speech bubble text */}
+          <text
+            x="21"
+            y="12"
+            textAnchor="middle"
+            fill="#1E1B18"
+            fontSize="12"
+            fontWeight="bold"
+            fontFamily="var(--handwritten)"
+          >
+            Bye!
+          </text>
+        </g>
+      )}
     </g>
   );
 }

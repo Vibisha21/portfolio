@@ -19,6 +19,8 @@ interface JourneyPathProps {
   isWalking: boolean;
   isSitting: boolean;
   isWaving: boolean;
+  isJumping: boolean;
+  onCheckpointClick: (id: string) => void;
 }
 
 export default function JourneyPath({
@@ -28,6 +30,8 @@ export default function JourneyPath({
   isWalking,
   isSitting,
   isWaving,
+  isJumping,
+  onCheckpointClick,
 }: JourneyPathProps) {
   return (
     <div className="w-full h-full flex justify-center items-center py-4 px-2 select-none">
@@ -81,7 +85,11 @@ export default function JourneyPath({
           const isVisited = activeIndex > index;
 
           return (
-            <g key={point.id} className="cursor-pointer">
+            <g
+              key={point.id}
+              className="cursor-pointer group"
+              onClick={() => onCheckpointClick(point.id)}
+            >
               {/* Active Pulse Glow */}
               {isActive && (
                 <circle
@@ -104,7 +112,8 @@ export default function JourneyPath({
                 fill={isActive ? "#E6B800" : isVisited ? "#6F5E53" : "#FAF6F0"}
                 stroke="#1E1B18"
                 strokeWidth="2.5"
-                className="transition-all duration-300"
+                className="transition-all duration-300 group-hover:scale-115 group-hover:stroke-[#6F5E53]"
+                style={{ transformOrigin: `160px ${point.y}px` }}
               />
 
               {/* Inner Node Core */}
@@ -113,7 +122,7 @@ export default function JourneyPath({
                 cy={point.y}
                 r="5.5"
                 fill={isActive ? "#1E1B18" : isVisited ? "#FAF6F0" : "#9B938B"}
-                className="transition-all duration-300"
+                className="transition-all duration-300 group-hover:fill-[#E6B800]"
               />
 
               {/* Label */}
@@ -123,7 +132,7 @@ export default function JourneyPath({
                 fill={isActive ? "#1E1B18" : isVisited ? "#6F5E53" : "#9B938B"}
                 fontSize="16"
                 fontWeight={isActive ? "700" : "600"}
-                className="transition-all duration-300 select-none font-sans"
+                className="transition-all duration-300 select-none font-sans group-hover:fill-[#1E1B18] group-hover:translate-x-1"
               >
                 {point.label}
               </text>
@@ -133,7 +142,7 @@ export default function JourneyPath({
 
         {/* The Walking/Sitting Robot (Scaled up by 1.35 for presence) */}
         <g transform={`translate(${robotPos.x}, ${robotPos.y}) scale(1.35)`} className="transition-transform duration-75">
-          <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} />
+          <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} isJumping={isJumping} />
         </g>
       </svg>
     </div>

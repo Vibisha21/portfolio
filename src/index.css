@@ -85,6 +85,34 @@ body {
   50% { transform: translate(22px, 0px) rotate(-95deg); }
 }
 
+@keyframes robot-jump {
+  0%, 100% {
+    transform: translateY(0px) scaleY(1) scaleX(1);
+  }
+  10% {
+    transform: translateY(2px) scaleY(0.85) scaleX(1.1);
+  }
+  50% {
+    transform: translateY(-28px) scaleY(1.1) scaleX(0.9);
+  }
+  75% {
+    transform: translateY(0px) scaleY(1) scaleX(1);
+  }
+  85% {
+    transform: translateY(1px) scaleY(0.95) scaleX(1.05);
+  }
+}
+
+@keyframes jump-arm-l {
+  0%, 100% { transform: translate(-22px, 0px) rotate(30deg); }
+  50% { transform: translate(-22px, 0px) rotate(140deg); }
+}
+
+@keyframes jump-arm-r {
+  0%, 100% { transform: translate(22px, 0px) rotate(-30deg); }
+  50% { transform: translate(22px, 0px) rotate(-140deg); }
+}
+
 @keyframes eye-blink {
   0%, 95%, 100% { transform: scaleY(1); }
   97.5% { transform: scaleY(0.1); }
@@ -95,12 +123,27 @@ body {
   animation: robot-bob 0.6s ease-in-out infinite;
 }
 
+.robot-jumping {
+  animation: robot-jump 0.8s ease-in-out infinite;
+  transform-origin: 0px 36px;
+}
+
 .robot-arm-l-walking {
   animation: swing-arm-l 0.6s ease-in-out infinite;
 }
 
 .robot-arm-r-walking {
   animation: swing-arm-r 0.6s ease-in-out infinite;
+}
+
+.robot-arm-l-jumping {
+  animation: jump-arm-l 0.8s ease-in-out infinite;
+  transform-origin: -22px 0px;
+}
+
+.robot-arm-r-jumping {
+  animation: jump-arm-r 0.8s ease-in-out infinite;
+  transform-origin: 22px 0px;
 }
 
 .robot-leg-l-walking {

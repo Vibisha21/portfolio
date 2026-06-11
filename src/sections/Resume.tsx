@@ -41,7 +41,7 @@ export default function Resume() {
         <div className="mt-10 p-4 bg-[#FAF6F0] rounded-xl border border-[#E6DFD5] inline-flex items-center gap-3 text-left max-w-sm mx-auto">
           <div className="text-2xl animate-bounce">🤖</div>
           <p className="text-xs text-[#5C554F] font-medium leading-normal font-sans">
-            "My work here is done! I'm sitting down to take a rest now. Safe travels!"
+            "Bye! Thank you so much for visiting my portfolio! Safe travels!"
           </p>
         </div>
       </div>
