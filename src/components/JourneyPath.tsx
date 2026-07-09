@@ -4,12 +4,13 @@ import Robot from "./Robot";
 // eslint-disable-next-line react-refresh/only-export-components
 export const checkpoints = [
   { y: 50, label: "Who Am I?", id: "about" },
-  { y: 160, label: "My Skills", id: "skills" },
-  { y: 270, label: "Projects", id: "projects" },
-  { y: 380, label: "Certifications", id: "certifications" },
-  { y: 490, label: "Achievements", id: "achievements" },
-  { y: 600, label: "Contact Me", id: "contact" },
-  { y: 710, label: "Resume", id: "resume" },
+  { y: 160, label: "Education", id: "education" },
+  { y: 270, label: "My Skills", id: "skills" },
+  { y: 380, label: "Projects", id: "projects" },
+  { y: 490, label: "Certifications", id: "certifications" },
+  { y: 600, label: "Achievements", id: "achievements" },
+  { y: 710, label: "Contact Me", id: "contact" },
+  { y: 820, label: "Resume", id: "resume" },
 ];
 
 interface JourneyPathProps {
@@ -38,7 +39,7 @@ export default function JourneyPath({
       <svg
         width="100%"
         height="100%"
-        viewBox="0 0 320 780"
+        viewBox="35 0 280 890"
         preserveAspectRatio="xMidYMid meet"
         className="overflow-visible max-h-[90vh]"
       >
@@ -52,11 +53,13 @@ export default function JourneyPath({
             C280 435, 40 435, 160 490
             C40 545, 280 545, 160 600
             C280 655, 40 655, 160 710
+            C40 765, 280 765, 160 820
           "
           fill="none"
           stroke="#E6DFD5"
           strokeWidth="12"
           strokeLinecap="round"
+          className="transition-all duration-300"
         />
 
         {/* Main Journey Path (Curvy & Giggly, wider bounds) */}
@@ -71,6 +74,7 @@ export default function JourneyPath({
             C280 435, 40 435, 160 490
             C40 545, 280 545, 160 600
             C280 655, 40 655, 160 710
+            C40 765, 280 765, 160 820
           "
           fill="none"
           stroke="#6F5E53"
@@ -140,8 +144,8 @@ export default function JourneyPath({
           );
         })}
 
-        {/* The Walking/Sitting Robot (Scaled up by 1.35 for presence) */}
-        <g transform={`translate(${robotPos.x}, ${robotPos.y}) scale(1.35)`} className="transition-transform duration-75">
+        {/* The Walking/Sitting Robot (Scaled up by 1.55 for presence) */}
+        <g transform={`translate(${robotPos.x}, ${robotPos.y}) scale(1.55)`} className="transition-transform duration-75">
           <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} isJumping={isJumping} />
         </g>
       </svg>

@@ -268,3 +268,165 @@ body {
   font-weight: bold;
   color: var(--brown-dark);
 }
+
+/* 3D Notebook Page Flip Styles */
+.perspective-1500 {
+  perspective: 1500px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Double page ruled paper style */
+.notebook-page-left {
+  background-color: #FAF8F5;
+  background-image: 
+    linear-gradient(rgba(111, 94, 83, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, transparent 54px, rgba(239, 68, 68, 0.15) 54px, rgba(239, 68, 68, 0.15) 56px, transparent 56px);
+  background-size: 100% 28px, 100% 100%;
+  padding-left: 72px;
+  padding-right: 28px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.notebook-page-right {
+  background-color: #FAF8F5;
+  background-image: 
+    linear-gradient(rgba(111, 94, 83, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, transparent calc(100% - 56px), rgba(239, 68, 68, 0.15) calc(100% - 56px), rgba(239, 68, 68, 0.15) calc(100% - 54px), transparent calc(100% - 54px));
+  background-size: 100% 28px, 100% 100%;
+  padding-left: 28px;
+  padding-right: 72px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+/* Spine Shadow */
+.notebook-spine-shadow-left {
+  background: linear-gradient(90deg, rgba(111, 94, 83, 0.15) 0%, transparent 100%);
+}
+
+.notebook-spine-shadow-right {
+  background: linear-gradient(-90deg, rgba(111, 94, 83, 0.15) 0%, transparent 100%);
+}
+
+/* Corner Curl Hover Effects */
+.page-corner-next {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, transparent 50%, rgba(230, 184, 0, 0.2) 50%, rgba(230, 184, 0, 0.4) 100%);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-origin: bottom right;
+}
+
+.page-corner-next:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, transparent 40%, rgba(230, 184, 0, 0.35) 40%, rgba(230, 184, 0, 0.6) 100%);
+}
+
+.page-corner-prev {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(225deg, transparent 50%, rgba(230, 184, 0, 0.2) 50%, rgba(230, 184, 0, 0.4) 100%);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-origin: bottom left;
+}
+
+.page-corner-prev:hover {
+  transform: scale(1.1);
+  background: linear-gradient(225deg, transparent 40%, rgba(230, 184, 0, 0.35) 40%, rgba(230, 184, 0, 0.6) 100%);
+}
+
+/* Page flip transition animations */
+@keyframes flip-forward {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flip-backward {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+.animate-flip-forward {
+  animation: flip-forward 0.6s ease-in-out forwards;
+  transform-origin: left center;
+}
+
+.animate-flip-backward {
+  animation: flip-backward 0.6s ease-in-out forwards;
+  transform-origin: right center;
+}
+
+/* Double-page notebook binding */
+.notebook-spiral-double {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.spiral-ring-double {
+  width: 36px;
+  height: 12px;
+  background: linear-gradient(to bottom, #e5e7eb, #9ca3af, #374151);
+  border-radius: 6px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  transform: translateX(-8px);
+}
+
+/* Modal Fade-In and Scale-Up transitions */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-up {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scale-up 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}

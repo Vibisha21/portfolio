@@ -1,8 +1,16 @@
 export default function Contact() {
   return (
-    <div className="w-full h-full flex flex-col justify-center max-w-xl mx-auto px-4 md:px-0 py-8 select-none">
+    <div className="w-full h-full flex flex-col justify-center max-w-2xl mx-auto px-4 md:px-0 py-8 select-none relative">
+      {/* Scrapbook Doodles */}
+      <svg className="absolute -top-10 -left-10 w-28 h-28 text-[#6F5E53]/25 transform -rotate-12 pointer-events-none select-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M15 50 L85 20 L55 80 L45 55 Z" fill="currentColor" fillOpacity="0.05"/>
+        <path d="M45 55 L55 55" />
+        <path d="M45 55 L35 70 L45 62" fill="currentColor" fillOpacity="0.1"/>
+        <path d="M15 65 Q 25 68 35 63" strokeDasharray="2 3"/>
+      </svg>
+
       <h2 className="text-3xl font-bold text-[#1E1B18] mb-6 flex items-center gap-3">
-        <span className="text-[#6F5E53]">05.</span> Contact Me
+        <span className="text-[#6F5E53]">06.</span> Contact Me
       </h2>
 
       <p className="text-[#4F4A45] mb-8 text-sm md:text-base font-light">
@@ -44,7 +52,7 @@ export default function Contact() {
           <div>
             <h4 className="text-xs uppercase tracking-wider font-semibold text-[#9B938B]">Call Me</h4>
             <a href="tel:+919876543210" className="text-base md:text-lg font-bold text-[#1E1B18] hover:underline">
-              +91 98765 43210
+              +91 9171764640
             </a>
           </div>
         </div>
@@ -79,7 +87,7 @@ export default function Contact() {
           <div>
             <h4 className="text-xs uppercase tracking-wider font-semibold text-[#9B938B]">Email Me</h4>
             <a href="mailto:vibisha.portfolio@example.com" className="text-base md:text-lg font-bold text-[#1E1B18] hover:underline">
-              vibisha.portfolio@example.com
+              vibisha.contact@gmail.com
             </a>
           </div>
         </div>
@@ -111,12 +119,12 @@ export default function Contact() {
           <div>
             <h4 className="text-xs uppercase tracking-wider font-semibold text-[#9B938B]">Network With Me</h4>
             <a
-              href="https://linkedin.com/in/vibisha"
+              href="https://www.linkedin.com/in/vibisha-v-4aba85291/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-base md:text-lg font-bold text-[#1E1B18] hover:underline"
             >
-              linkedin.com/in/vibisha
+              linkedin.com/in/vibisha-v-4aba85291/
             </a>
           </div>
         </div>

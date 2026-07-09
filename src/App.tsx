@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Education from "./sections/Education";
 import Skills from "./sections/Skills";
 import Projects from "./sections/Projects";
 import Certifications from "./sections/Certifications";
@@ -27,7 +28,7 @@ function App() {
   const handleCheckpointClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -37,22 +38,69 @@ function App() {
       const path = pathRef.current;
       if (!container || !path) return;
 
-      const rect = container.getBoundingClientRect();
-      const scrolled = -rect.top;
-      const totalScrollable = rect.height - window.innerHeight;
-
-      // Bound progress between 0 and 1
-      const currentProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-      setProgress(currentProgress);
-
-      // Active section index mapping (7 sections -> index 0 to 6)
-      const index = Math.round(currentProgress * 6);
-      setActiveIndex(index);
+      const sectionIds = ["about", "education", "skills", "projects", "certifications", "achievements", "contact", "resume"];
+      const sectionElements = sectionIds.map(id => document.getElementById(id));
+      
+      const triggerY = 0; // The top of the viewport is the focus/trigger line
+      let activeIdx = 0;
+      let ratio = 0;
+      
+      const firstEl = sectionElements[0];
+      if (firstEl) {
+        const firstRect = firstEl.getBoundingClientRect();
+        if (firstRect.top > triggerY) {
+          // Before the first section triggers
+          activeIdx = 0;
+          ratio = 0;
+        } else {
+          // Find the currently active section based on the trigger line
+          for (let i = 0; i < sectionElements.length; i++) {
+            const el = sectionElements[i];
+            if (!el) continue;
+            const rect = el.getBoundingClientRect();
+            
+            if (rect.top <= triggerY) {
+              activeIdx = i;
+              
+              const nextEl = sectionElements[i + 1];
+              if (nextEl) {
+                const nextRect = nextEl.getBoundingClientRect();
+                const totalDistance = nextRect.top - rect.top;
+                const distanceToNext = nextRect.top - triggerY;
+                if (totalDistance > 0) {
+                  // Only start moving the robot to the next checkpoint when the next section is close (within 80% of viewport height)
+                  const transitionDistance = Math.min(totalDistance, window.innerHeight * 0.8);
+                  if (distanceToNext >= transitionDistance) {
+                    ratio = 0;
+                  } else {
+                    ratio = Math.max(0, Math.min(1, 1 - distanceToNext / transitionDistance));
+                  }
+                }
+              } else {
+                // For the last section, interpolate progress based on remaining scroll in container
+                const containerRect = container.getBoundingClientRect();
+                const scrolled = -containerRect.top;
+                const totalScrollable = containerRect.height - window.innerHeight;
+                const lastSectionOffset = el.offsetTop;
+                const remainingScroll = totalScrollable - lastSectionOffset;
+                if (remainingScroll > 0) {
+                  ratio = Math.max(0, Math.min(1, (scrolled - lastSectionOffset) / remainingScroll));
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      const currentProgress = (activeIdx + ratio) / (sectionIds.length - 1);
+      const boundedProgress = Math.max(0, Math.min(1, currentProgress));
+      setProgress(boundedProgress);
+      setActiveIndex(activeIdx);
 
       // Calculate the (x, y) coordinates of the robot along the SVG path
       try {
         const pathLength = path.getTotalLength();
-        const point = path.getPointAtLength(currentProgress * pathLength);
+        const point = path.getPointAtLength(boundedProgress * pathLength);
         if (point) {
           setRobotPos({ x: point.x, y: point.y });
         }
@@ -90,8 +138,8 @@ function App() {
       {/* 2. Interactive Journey Scroll Container */}
       <div ref={journeyContainerRef} className="relative w-full flex flex-col md:flex-row bg-[#FAF6F0]">
         
-        {/* Left Side: Robot Path area (Sticky) (Width 40% for higher presence) */}
-        <div className="w-full md:w-[40%] h-[35vh] md:h-screen md:sticky md:top-0 border-b md:border-b-0 md:border-r border-[#E6DFD5] flex items-center justify-center py-4 bg-[#FAF6F0] z-20">
+        {/* Left Side: Robot Path area (Sticky) (Width 30% for higher presence) */}
+        <div className="w-full md:w-[30%] h-[35vh] md:h-screen md:sticky md:top-0 border-b md:border-b-0 md:border-r border-[#E6DFD5] flex items-center justify-center py-4 bg-[#FAF6F0] z-20">
           <JourneyPath
             pathRef={pathRef}
             activeIndex={activeIndex}
@@ -104,11 +152,15 @@ function App() {
           />
         </div>
 
-        {/* Right Side: Section Content area (Scrolls Naturally) (Width 60% for continuous layout) */}
-        <div className="w-full md:w-[60%] px-6 md:px-16 py-12 flex flex-col gap-24 md:gap-32 bg-[#FAF6F0] z-10">
+        {/* Right Side: Section Content area (Scrolls Naturally) (Width 70% for continuous layout) */}
+        <div className="w-full md:w-[70%] px-6 md:px-20 pt-12 pb-[80vh] flex flex-col gap-24 md:gap-32 bg-[#FAF6F0] z-10">
           
           <div id="about" className="min-h-[80vh] flex items-center py-10 w-full">
             <About />
+          </div>
+
+          <div id="education" className="min-h-[80vh] flex items-center py-10 w-full">
+            <Education />
           </div>
 
           <div id="skills" className="min-h-[80vh] flex items-center py-10 w-full">

@@ -1,6 +1,6 @@
 export default function Resume() {
   return (
-    <div className="w-full h-full flex flex-col justify-center max-w-xl mx-auto px-4 md:px-0 py-8 select-none">
+    <div className="w-full h-full flex flex-col justify-center max-w-2xl mx-auto px-4 md:px-0 py-8 select-none">
       <div className="p-8 bg-white/60 border border-[#E6DFD5] rounded-2xl shadow-xl text-center relative overflow-hidden">
         {/* Decorative background shape */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[#E6B800] opacity-10 rounded-bl-full pointer-events-none"></div>
@@ -15,7 +15,7 @@ export default function Resume() {
 
         {/* Download Button */}
         <a
-          href="/resume.pdf"
+          href="https://drive.google.com/file/d/1uFxHHFhw_vRy-qHsaPWTeanNJkTVieMt/view?usp=sharing"
           download="Vibisha_Resume.pdf"
           className="inline-flex items-center gap-3 px-8 py-3.5 bg-[#6F5E53] text-[#FAF6F0] font-bold rounded-full border border-[#6F5E53] hover:bg-[#FAF6F0] hover:text-[#1E1B18] hover:border-[#1E1B18] hover:shadow-lg transition-all duration-300 group cursor-pointer"
         >
