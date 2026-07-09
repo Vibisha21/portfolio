@@ -2,11 +2,17 @@ export default function Contact() {
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-2xl mx-auto px-4 md:px-0 py-8 select-none relative">
       {/* Scrapbook Doodles */}
-      <svg className="absolute -top-10 -left-10 w-28 h-28 text-[#6F5E53]/25 transform -rotate-12 pointer-events-none select-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg className="absolute -top-10 -left-10 w-28 h-28 text-[#1E1B18]/70 transform -rotate-12 pointer-events-none select-none scrapbook-float-slow-3" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M15 50 L85 20 L55 80 L45 55 Z" fill="currentColor" fillOpacity="0.05"/>
         <path d="M45 55 L55 55" />
         <path d="M45 55 L35 70 L45 62" fill="currentColor" fillOpacity="0.1"/>
         <path d="M15 65 Q 25 68 35 63" strokeDasharray="2 3"/>
+      </svg>
+      <svg className="absolute -bottom-8 -right-8 w-24 h-24 text-[#E6B800]/80 pointer-events-none select-none scrapbook-float-slow-5" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+        {/* Left speech bubble */}
+        <path d="M40 35 C25 35, 25 50, 40 50 C43 50, 45 52, 45 55 L45 60 L52 53 C58 53, 65 50, 65 35 Z" fill="currentColor" fillOpacity="0.1" />
+        {/* Right speech bubble */}
+        <path d="M60 55 C70 55, 70 65, 60 65 C58 65, 56 67, 56 69 L56 73 L51 68 C47 68, 43 65, 43 55 Z" stroke="#6F5E53" fill="none" strokeWidth="1.5" />
       </svg>
 
       <h2 className="text-3xl font-bold text-[#1E1B18] mb-6 flex items-center gap-3">

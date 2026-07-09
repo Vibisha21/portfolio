@@ -101,10 +101,14 @@ export default function Certifications() {
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-3xl mx-auto px-4 md:px-0 py-8 select-none relative">
       {/* Scrapbook Doodles */}
-      <svg className="absolute -top-6 -right-6 w-24 h-24 text-[#6F5E53]/25 transform rotate-6 pointer-events-none select-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg className="absolute -top-6 -right-6 w-24 h-24 text-[#E6B800]/80 transform rotate-6 pointer-events-none select-none scrapbook-float-slow-5" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="50" cy="45" r="22" fill="currentColor" fillOpacity="0.05" strokeDasharray="3 2"/>
         <path d="M42 63 L35 85 L50 78 L65 85 L58 63" fill="currentColor" fillOpacity="0.1"/>
         <path d="M45 40 L50 32 L55 40 L63 45 L55 50 L50 58 L45 50 L37 45 Z" fill="currentColor" fillOpacity="0.1"/>
+      </svg>
+      <svg className="absolute -bottom-8 -left-8 w-24 h-24 text-[#1E1B18]/50 pointer-events-none select-none scrapbook-float-slow-4" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="25" y="25" width="50" height="50" rx="3" strokeDasharray="3 3" />
+        <path d="M38 52 L46 60 L62 40" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
 
       <h2 className="text-3xl font-bold text-[#1E1B18] mb-8 flex items-center gap-3">

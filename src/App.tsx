@@ -9,6 +9,7 @@ import Achievements from "./sections/Achievements";
 import Contact from "./sections/Contact";
 import Resume from "./sections/Resume";
 import JourneyPath from "./components/JourneyPath";
+import ScrapbookBackground from "./components/ScrapbookBackground";
 
 function App() {
   const [progress, setProgress] = useState(0);
@@ -153,37 +154,38 @@ function App() {
         </div>
 
         {/* Right Side: Section Content area (Scrolls Naturally) (Width 70% for continuous layout) */}
-        <div className="w-full md:w-[70%] px-6 md:px-20 pt-12 pb-[80vh] flex flex-col gap-24 md:gap-32 bg-[#FAF6F0] z-10">
+        <div className="w-full md:w-[70%] px-6 md:px-20 pt-12 pb-16 md:pb-24 flex flex-col gap-24 md:gap-32 notebook-grid z-10 relative">
+          <ScrapbookBackground />
           
-          <div id="about" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="about" className="min-h-[65vh] flex items-center py-6 w-full z-10">
             <About />
           </div>
 
-          <div id="education" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="education" className="min-h-[65vh] flex items-center py-6 w-full">
             <Education />
           </div>
 
-          <div id="skills" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="skills" className="min-h-[65vh] flex items-center py-6 w-full">
             <Skills />
           </div>
 
-          <div id="projects" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="projects" className="min-h-[65vh] flex items-center py-6 w-full">
             <Projects />
           </div>
 
-          <div id="certifications" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="certifications" className="min-h-[65vh] flex items-center py-6 w-full">
             <Certifications />
           </div>
 
-          <div id="achievements" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="achievements" className="min-h-[65vh] flex items-center py-6 w-full">
             <Achievements />
           </div>
 
-          <div id="contact" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="contact" className="min-h-[65vh] flex items-center py-6 w-full">
             <Contact />
           </div>
 
-          <div id="resume" className="min-h-[80vh] flex items-center py-10 w-full">
+          <div id="resume" className="min-h-[65vh] flex items-center py-6 w-full">
             <Resume />
           </div>
 

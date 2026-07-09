@@ -2,7 +2,7 @@ import heroImg from "../assets/hero.jpeg";
 
 export default function Hero() {
   return (
-    <section className="h-screen w-full flex flex-col md:flex-row items-center justify-center bg-[#FAF6F0] px-8 md:px-20 py-12 relative overflow-hidden select-none">
+    <section className="h-screen w-full flex flex-col md:flex-row items-center justify-center notebook-grid px-8 md:px-20 py-12 relative overflow-hidden select-none">
       {/* Left Side: Image with pretty good padding and a high-end frame */}
       <div className="w-full md:w-1/2 flex justify-center items-center p-6 md:p-12">
         <div className="relative group">
@@ -14,12 +14,12 @@ export default function Hero() {
             <img
               src={heroImg}
               alt="Vibisha"
-              className="w-72 h-96 md:w-96 md:h-[480px] rounded-lg object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+              className="w-60 h-80 md:w-80 md:h-[400px] rounded-lg object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
             />
             {/* Tiny tape accent */}
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-7 bg-amber-500/20 backdrop-blur-[1px] rotate-[-6deg] shadow-sm"></div>
             
-            <p className="font-handwritten text-center text-2xl mt-5 text-[#3A322C]">
+            <p className="font-handwritten text-center text-xl mt-5 text-[#3A322C]">
               Me, captured!
             </p>
           </div>
@@ -28,13 +28,13 @@ export default function Hero() {
 
       {/* Right Side: Text Area */}
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left mt-8 md:mt-0 px-4 md:px-8">
-        <span className="font-handwritten text-4xl md:text-5xl text-[#E6B800] mb-3 inline-block animate-bounce">
+        <span className="font-handwritten text-3xl md:text-4xl text-[#E6B800] mb-3 inline-block animate-bounce">
           Hi!!!
         </span>
-        <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight text-[#1E1B18] leading-none mb-6 font-sans">
+        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-[#1E1B18] leading-none mb-6 font-sans">
           I'm <span className="text-[#6F5E53] underline decoration-[#E6B800] decoration-wavy decoration-3 underline-offset-8">Vibisha</span>
         </h1>
-        <p className="text-xl md:text-2xl text-[#4F4A45] font-light max-w-lg mt-2 leading-relaxed">
+        <p className="text-base md:text-lg text-[#4F4A45] font-light max-w-lg mt-2 leading-relaxed">
           Welcome to my portfolio. Scroll down to see my journey!
         </p>
 
