@@ -10,23 +10,42 @@ import Contact from "./sections/Contact";
 import Resume from "./sections/Resume";
 import JourneyPath from "./components/JourneyPath";
 import ScrapbookBackground from "./components/ScrapbookBackground";
+import ScrollPathArrow from "./components/ScrollPathArrow";
+import ScrollDoodle from "./components/ScrollDoodle";
+import TwistingArrow from "./components/TwistingArrow";
+import JumpingArrow from "./components/JumpingArrow";
 
 function App() {
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isWalking, setIsWalking] = useState(false);
   const [robotPos, setRobotPos] = useState({ x: 160, y: 50 });
+  const [isJumpingCheckpoint, setIsJumpingCheckpoint] = useState(false);
+  const [isAtEnd, setIsAtEnd] = useState(false);
 
   const journeyContainerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const scrollTimeoutRef = useRef<number | null>(null);
+  const targetCheckpointRef = useRef<string | null>(null);
 
   // Derived states
-  const isSitting = false; // The robot no longer sits at the end!
-  const isJumping = progress >= 0.96;
-  const isWaving = progress >= 0.96;
+  const isSitting = false;
+  const isJumping = progress >= 0.96 || isJumpingCheckpoint || isAtEnd;
+  const isWaving = progress >= 0.96 || isAtEnd;
 
   const handleCheckpointClick = (id: string) => {
+    const sectionIds = ["about", "education", "skills", "projects", "certifications", "achievements", "contact", "resume"];
+    const targetIdx = sectionIds.indexOf(id);
+    const distance = Math.abs(targetIdx - activeIndex);
+
+    if (distance >= 2) {
+      setIsJumpingCheckpoint(true);
+      targetCheckpointRef.current = id;
+    } else {
+      setIsJumpingCheckpoint(false);
+      targetCheckpointRef.current = null;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -93,6 +112,20 @@ function App() {
         }
       }
       
+      const reachedEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 15;
+      setIsAtEnd(reachedEnd);
+
+      if (targetCheckpointRef.current) {
+        const targetEl = document.getElementById(targetCheckpointRef.current);
+        if (targetEl) {
+          const rect = targetEl.getBoundingClientRect();
+          if (Math.abs(rect.top) < 20) {
+            setIsJumpingCheckpoint(false);
+            targetCheckpointRef.current = null;
+          }
+        }
+      }
+
       const currentProgress = (activeIdx + ratio) / (sectionIds.length - 1);
       const boundedProgress = Math.max(0, Math.min(1, currentProgress));
       setProgress(boundedProgress);
@@ -116,7 +149,9 @@ function App() {
       }
       scrollTimeoutRef.current = window.setTimeout(() => {
         setIsWalking(false);
-      }, 120);
+        setIsJumpingCheckpoint(false);
+        targetCheckpointRef.current = null;
+      }, 180);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -149,6 +184,7 @@ function App() {
             isSitting={isSitting}
             isWaving={isWaving}
             isJumping={isJumping}
+            isAtEnd={isAtEnd}
             onCheckpointClick={handleCheckpointClick}
           />
         </div>
@@ -156,36 +192,73 @@ function App() {
         {/* Right Side: Section Content area (Scrolls Naturally) (Width 70% for continuous layout) */}
         <div className="w-full md:w-[70%] px-6 md:px-20 pt-12 pb-16 md:pb-24 flex flex-col gap-24 md:gap-32 notebook-grid z-10 relative">
           <ScrapbookBackground />
+          <ScrollPathArrow />
           
-          <div id="about" className="min-h-[65vh] flex items-center py-6 w-full z-10">
+          <div id="about" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <About />
           </div>
 
-          <div id="education" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="star" size={56} className="absolute left-[10%]" />
+            <TwistingArrow size={44} rotationSpeed={0.8} className="absolute right-[15%]" />
+            <JumpingArrow size={36} />
+          </div>
+
+          <div id="education" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Education />
           </div>
 
-          <div id="skills" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="heart" size={60} className="absolute right-[8%]" />
+            <ScrollDoodle type="loop" size={70} className="absolute left-[12%]" />
+          </div>
+
+          <div id="skills" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Skills />
           </div>
 
-          <div id="projects" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="bulb" size={64} className="absolute left-[15%]" />
+            <TwistingArrow size={48} rotationSpeed={-0.6} className="absolute right-[12%]" />
+          </div>
+
+          <div id="projects" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Projects />
           </div>
 
-          <div id="certifications" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="smiley" size={56} className="absolute right-[10%]" />
+            <ScrollDoodle type="star" size={50} className="absolute left-[8%]" />
+          </div>
+
+          <div id="certifications" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Certifications />
           </div>
 
-          <div id="achievements" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="loop" size={64} className="absolute right-[15%]" />
+            <TwistingArrow size={40} rotationSpeed={0.5} className="absolute left-[10%]" />
+          </div>
+
+          <div id="achievements" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Achievements />
           </div>
 
-          <div id="contact" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="heart" size={56} className="absolute left-[12%]" />
+            <JumpingArrow size={40} className="absolute right-[15%]" />
+          </div>
+
+          <div id="contact" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Contact />
           </div>
 
-          <div id="resume" className="min-h-[65vh] flex items-center py-6 w-full">
+          <div className="flex justify-center items-center h-20 relative select-none z-10 w-full">
+            <ScrollDoodle type="smiley" size={60} className="absolute left-[10%]" />
+            <ScrollDoodle type="bulb" size={56} className="absolute right-[8%]" />
+          </div>
+
+          <div id="resume" className="min-h-[65vh] flex items-center py-6 w-full z-10 relative">
             <Resume />
           </div>
 

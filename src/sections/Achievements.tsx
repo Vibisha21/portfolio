@@ -341,10 +341,10 @@ export default function Achievements() {
 
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-4xl mx-auto px-4 md:px-0 py-4 select-none">
-      <div className="relative w-full h-[680px] bg-[#E6DFD5]/20 rounded-3xl p-3 md:p-6 shadow-2xl border border-[#E6DFD5]/50 backdrop-blur-xs">
+      <div className="relative w-full h-[740px] bg-[#E6DFD5]/20 rounded-3xl p-3 md:p-6 shadow-2xl border border-[#E6DFD5]/50 backdrop-blur-xs">
         
         {/* Desktop Notebook (md and up) */}
-        <div className="hidden md:flex relative w-full h-[580px] bg-[#FAF8F5] rounded-xl shadow-lg border border-[#E6DFD5] overflow-visible perspective-1500">
+        <div className="hidden md:flex relative w-full h-[620px] bg-[#FAF8F5] rounded-xl shadow-lg border border-[#E6DFD5] overflow-visible perspective-1500">
           
           {/* Central Spiral Spine */}
           <div className="notebook-spiral-double">
@@ -454,7 +454,7 @@ export default function Achievements() {
         </div>
 
         {/* Mobile Notebook (below md, single page format) */}
-        <div className="flex md:hidden relative w-full h-[580px] bg-[#FAF8F5] rounded-xl shadow-lg border border-[#E6DFD5] overflow-visible perspective-1500">
+        <div className="flex md:hidden relative w-full h-[620px] bg-[#FAF8F5] rounded-xl shadow-lg border border-[#E6DFD5] overflow-visible perspective-1500">
           {/* Vertical Spiral Rings on the Left Edge */}
           <div className="notebook-spiral">
             <div className="spiral-ring"></div>
@@ -542,7 +542,7 @@ export default function Achievements() {
               <img
                 src={zoomImage.src}
                 alt={zoomImage.title}
-                className="max-w-full max-h-full object-contain rounded-lg border border-[#FAF6F0]"
+                className="max-h-[50vh] md:max-h-[55vh] w-auto object-contain rounded-lg border border-[#FAF6F0]"
               />
             </div>
 

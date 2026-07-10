@@ -3,9 +3,10 @@ interface RobotProps {
   isSitting: boolean;
   isWaving: boolean;
   isJumping?: boolean;
+  isAtEnd?: boolean;
 }
 
-export default function Robot({ isWalking, isSitting, isWaving, isJumping = false }: RobotProps) {
+export default function Robot({ isWalking, isSitting, isWaving, isJumping = false, isAtEnd = false }: RobotProps) {
   return (
     <g className={isJumping ? "robot-jumping" : isWalking && !isSitting ? "robot-bobbing" : ""}>
       {/* Neck */}
@@ -245,7 +246,7 @@ export default function Robot({ isWalking, isSitting, isWaving, isJumping = fals
       </g>
 
       {/* Speech Bubble */}
-      {isJumping && (
+      {isAtEnd && (
         <g transform="translate(18, -32)">
           {/* Speech bubble tail */}
           <polygon points="0,10 -8,15 2,17" fill="#FAF6F0" stroke="#1E1B18" strokeWidth="1.8" />

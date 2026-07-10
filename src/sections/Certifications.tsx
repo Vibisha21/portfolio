@@ -99,7 +99,7 @@ export default function Certifications() {
   const [selectedCert, setSelectedCert] = useState<typeof certificationsList[0] | null>(null);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center max-w-3xl mx-auto px-4 md:px-0 py-8 select-none relative">
+    <div className="w-full h-full flex flex-col justify-center max-w-4xl mx-auto px-4 md:px-0 py-8 select-none relative">
       {/* Scrapbook Doodles */}
       <svg className="absolute -top-6 -right-6 w-24 h-24 text-[#E6B800]/80 transform rotate-6 pointer-events-none select-none scrapbook-float-slow-5" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="50" cy="45" r="22" fill="currentColor" fillOpacity="0.05" strokeDasharray="3 2"/>
@@ -111,34 +111,34 @@ export default function Certifications() {
         <path d="M38 52 L46 60 L62 40" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
 
-      <h2 className="text-3xl font-bold text-[#1E1B18] mb-8 flex items-center gap-3">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E1B18] mb-10 flex items-center gap-3">
         <span className="text-[#6F5E53]">05.</span> Certifications
       </h2>
 
-      <p className="text-[#4F4A45] mb-6 text-sm md:text-base font-light">
+      <p className="text-[#4F4A45] mb-8 text-base md:text-lg font-light">
         Click on any certificate to view the credential details and verification document.
       </p>
 
       {/* Certification List */}
-      <div className="space-y-4">
+      <div className="space-y-5">
         {certificationsList.map((cert) => (
           <button
             key={cert.title}
             onClick={() => setSelectedCert(cert)}
-            className="w-full text-left flex justify-between items-center p-4 bg-white/40 border border-[#E6DFD5] rounded-xl hover:bg-white/70 hover:border-[#6F5E53] hover:shadow-md transition-all duration-300 group cursor-pointer"
+            className="w-full text-left flex justify-between items-center p-5 md:p-6 bg-white/40 border-2 border-[#E6DFD5] rounded-2xl hover:bg-white/70 hover:border-[#6F5E53] hover:shadow-lg transition-all duration-300 group cursor-pointer"
           >
             <div>
-              <h3 className="font-bold text-[#1E1B18] group-hover:text-[#6F5E53] transition-colors duration-300">
+              <h3 className="text-lg md:text-xl font-bold text-[#1E1B18] group-hover:text-[#6F5E53] transition-colors duration-300">
                 {cert.title}
               </h3>
-              <p className="text-xs md:text-sm text-[#9B938B]">
+              <p className="text-sm md:text-base text-[#9B938B] mt-1">
                 Issued by {cert.issuer} • {cert.date}
               </p>
             </div>
 
             {/* Action Arrow Icon */}
-            <div className="w-8 h-8 rounded-full bg-[#FAF6F0] border border-[#E6DFD5] flex items-center justify-center text-[#6F5E53] group-hover:bg-[#E6B800] group-hover:text-[#1E1B18] group-hover:border-[#1E1B18] transition-all duration-300">
-              <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <div className="w-10 h-10 rounded-full bg-[#FAF6F0] border border-[#E6DFD5] flex items-center justify-center text-[#6F5E53] group-hover:bg-[#E6B800] group-hover:text-[#1E1B18] group-hover:border-[#1E1B18] transition-all duration-300 shrink-0">
+              <svg className="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.43 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
               </svg>
@@ -178,7 +178,7 @@ export default function Certifications() {
               <img
                 src={selectedCert.image}
                 alt="Certificate Document"
-                className="max-w-full max-h-full object-contain rounded-lg border border-[#FAF6F0]"
+                className="max-h-[50vh] md:max-h-[55vh] w-auto object-contain rounded-lg border border-[#FAF6F0]"
               />
             </div>
 

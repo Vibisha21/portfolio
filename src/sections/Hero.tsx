@@ -1,4 +1,5 @@
 import heroImg from "../assets/hero.jpeg";
+import JumpingArrow from "../components/JumpingArrow";
 
 export default function Hero() {
   return (
@@ -38,13 +39,16 @@ export default function Hero() {
           Welcome to my portfolio. Scroll down to see my journey!
         </p>
 
-        {/* Scroll Indicator */}
-        <div className="mt-10 flex items-center gap-3 text-[#9B938B] font-medium text-sm tracking-wider uppercase">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E6B800]"></span>
-          </span>
-          Scroll to explore
+        {/* Scroll Indicator with Jumping Arrow */}
+        <div className="mt-10 flex flex-col items-center md:items-start gap-4">
+          <div className="flex items-center gap-3 text-[#9B938B] font-medium text-sm tracking-wider uppercase">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E6B800]"></span>
+            </span>
+            Scroll to explore
+          </div>
+          <JumpingArrow size={32} className="md:ml-6 mt-1" />
         </div>
       </div>
 

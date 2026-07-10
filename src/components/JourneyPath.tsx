@@ -21,6 +21,7 @@ interface JourneyPathProps {
   isSitting: boolean;
   isWaving: boolean;
   isJumping: boolean;
+  isAtEnd?: boolean;
   onCheckpointClick: (id: string) => void;
 }
 
@@ -32,6 +33,7 @@ export default function JourneyPath({
   isSitting,
   isWaving,
   isJumping,
+  isAtEnd = false,
   onCheckpointClick,
 }: JourneyPathProps) {
   return (
@@ -57,7 +59,7 @@ export default function JourneyPath({
           "
           fill="none"
           stroke="#E6DFD5"
-          strokeWidth="12"
+          strokeWidth="16"
           strokeLinecap="round"
           className="transition-all duration-300"
         />
@@ -78,7 +80,7 @@ export default function JourneyPath({
           "
           fill="none"
           stroke="#6F5E53"
-          strokeWidth="5"
+          strokeWidth="7"
           strokeLinecap="round"
           strokeDasharray="1 9" /* Hand-drawn style */
         />
@@ -131,12 +133,12 @@ export default function JourneyPath({
 
               {/* Label */}
               <text
-                x="190"
+                x="195"
                 y={point.y + 6}
                 fill={isActive ? "#1E1B18" : isVisited ? "#6F5E53" : "#9B938B"}
-                fontSize="16"
-                fontWeight={isActive ? "700" : "600"}
-                className="transition-all duration-300 select-none font-sans group-hover:fill-[#1E1B18] group-hover:translate-x-1"
+                fontSize="19"
+                fontWeight={isActive ? "800" : "700"}
+                className="transition-all duration-300 select-none font-sans group-hover:fill-[#1E1B18] group-hover:translate-x-1.5"
               >
                 {point.label}
               </text>
@@ -146,7 +148,7 @@ export default function JourneyPath({
 
         {/* The Walking/Sitting Robot (Scaled up by 1.55 for presence) */}
         <g transform={`translate(${robotPos.x}, ${robotPos.y}) scale(1.55)`} className="transition-transform duration-75">
-          <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} isJumping={isJumping} />
+          <Robot isWalking={isWalking} isSitting={isSitting} isWaving={isWaving} isJumping={isJumping} isAtEnd={isAtEnd} />
         </g>
       </svg>
     </div>
